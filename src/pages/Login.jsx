@@ -1,9 +1,20 @@
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useRef } from "react";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "react-simple-captcha";
 
 const Login = () => {
   const { signInWithGoogle } = useAuth();
   const navigate = useNavigate();
+
+  const captchaInputRef = useRef(null);
+  const [disabledLoginBtn, setDisabledLoginBtn] = useState(true);
 
   const handleLoginForm = (e) => {
     e.preventDefault();
@@ -21,6 +32,17 @@ const Login = () => {
       console.log(error.message);
     }
   };
+
+  const handleCaptchaInput = () => {
+    const userCaptchaValue = captchaInputRef.current.value;
+    if (validateCaptcha(userCaptchaValue) === true) {
+      setDisabledLoginBtn(false);
+    }
+  };
+
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
 
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -50,7 +72,31 @@ const Login = () => {
                 className="input"
                 placeholder="Password"
               />
-              <button className="btn btn-neutral mt-4" type="submit">
+              <label className="label">
+                <LoadCanvasTemplate />
+              </label>
+
+              <input
+                ref={captchaInputRef}
+                name="captcha"
+                type="text"
+                className="input"
+                placeholder="Enter the text you see above"
+              />
+
+              <button
+                onClick={handleCaptchaInput}
+                className="btn btn-success w-11/12 mx-auto mt-4"
+                type="button"
+              >
+                Validate Captcha
+              </button>
+
+              <button
+                disabled={disabledLoginBtn}
+                className="btn btn-neutral mt-4"
+                type="submit"
+              >
                 Login
               </button>
             </fieldset>
