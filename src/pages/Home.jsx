@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Elegant Bistro | Home</title>
+        <title>Elegance Bistro | Home</title>
       </Helmet>
 
       <section className="mb-8 sm:mb-10 lg:mb-12">
