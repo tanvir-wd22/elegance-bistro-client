@@ -2,10 +2,12 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import AuthContext from "./AuthContext";
 import { useEffect, useState } from "react";
 import { auth } from "../firebase/config.js";
+import { createUserWithEmailAndPassword } from "firebase/auth/cordova";
 
 const provider = new GoogleAuthProvider();
 
@@ -13,12 +15,24 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const signInWithGoogle = () => {
+  const googleUser = () => {
     setLoading(true);
     return signInWithPopup(auth, provider);
   };
 
-  const authInfo = { user, loading, signInWithGoogle };
+  const createUser = (email, password) => {
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const signInUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const 
+
+  const authInfo = { user, loading, googleUser, createUser, signInUser };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
