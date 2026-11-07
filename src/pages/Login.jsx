@@ -1,10 +1,7 @@
 import useAuth from "../hooks/useAuth";
-import { Link, useNavigate } from "react-router";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+import { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -12,24 +9,30 @@ import {
 } from "react-simple-captcha";
 
 const Login = () => {
-  const { googleUser, signInUser } = useAuth();
-  const navigate = useNavigate();
-
+  // captcha hooks
   const captchaInputRef = useRef(null);
   const [disabledLoginBtn, setDisabledLoginBtn] = useState(false);
 
+  // react hook form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  // auth redirect hooks
+  const { googleUser, signInUser } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location?.state?.from?.pathname || "/";
+
   const onSubmit = async (data) => {
     const { email, password } = data;
     try {
       const result = await signInUser(email, password);
       console.log(result);
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error) {
       console.log(error.message);
     }
@@ -39,7 +42,7 @@ const Login = () => {
     try {
       const result = await googleUser();
       console.log(result.user);
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error) {
       console.log(error.message);
     }

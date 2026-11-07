@@ -5,6 +5,7 @@ import FoodMenu from "../pages/FoodMenu";
 import FoodShop from "../pages/FoodShop";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import PrivateRoute from "./PrivateRoute";
 
 const publicRoutes = createBrowserRouter([
   {
@@ -17,7 +18,11 @@ const publicRoutes = createBrowserRouter([
       },
       {
         path: "/menu",
-        element: <FoodMenu></FoodMenu>,
+        element: (
+          <PrivateRoute>
+            <FoodMenu></FoodMenu>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/shop/:categoryName",
