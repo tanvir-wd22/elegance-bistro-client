@@ -1,18 +1,19 @@
 import { useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSignUpForm = async (e) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const photo = e.target.photo.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    // console.log(name, photo, email, password);
-
+  const onSubmit = async (data) => {
+    const { name, photo, email, password } = data;
+    console.log(data);
     try {
       const result = await createUser(email, password);
       console.log(result);
@@ -25,34 +26,47 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex justify-center items-center">
-      <form onSubmit={handleSignUpForm}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+          {/* name input */}
           <label className="label">Name</label>
-          <input name="name" type="text" className="input" placeholder="Name" />
+          <input
+            type="text"
+            className="input"
+            placeholder="Name"
+            {...register("name", { required: "name is required" })}
+          />
+          {errors.name && <p role="alert">{errors.name.message}</p>}
 
+          {/* photo input */}
           <label className="label">Photo Url</label>
           <input
-            name="photo"
             type="text"
             className="input"
             placeholder="Photo"
+            {...register("photo", { required: "photo is required" })}
           />
+          {errors.photo && <p role="alert">{errors.photo.message}</p>}
 
+          {/* email input */}
           <label className="label">Email</label>
           <input
-            name="email"
             type="email"
             className="input"
             placeholder="Email"
+            {...register("email", { required: "email is required" })}
           />
+          {errors.email && <p role="alert">{errors.email.message}</p>}
 
+          {/* password input */}
           <label className="label">Password</label>
           <input
-            name="password"
             type="password"
             className="input"
             placeholder="Password"
+            {...register("password", { required: "password is required" })}
           />
+          {errors.password && <p role="alert">{errors.password.message}</p>}
 
           <button className="btn btn-neutral mt-4">Sign Up</button>
         </fieldset>

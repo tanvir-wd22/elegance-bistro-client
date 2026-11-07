@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
+import { useForm } from "react-hook-form";
+
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -14,13 +16,16 @@ const Login = () => {
   const navigate = useNavigate();
 
   const captchaInputRef = useRef(null);
-  const [disabledLoginBtn, setDisabledLoginBtn] = useState(true);
+  const [disabledLoginBtn, setDisabledLoginBtn] = useState(false);
 
-  const handleLoginForm = async (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    // console.log(email, password);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    const { email, password } = data;
     try {
       const result = await signInUser(email, password);
       console.log(result);
@@ -67,26 +72,32 @@ const Login = () => {
           </div>
         </div>
         <div className="w-full max-w-sm lg:w-1/2 card bg-base-100 shadow-2xl">
-          <form onSubmit={handleLoginForm} className="card-body">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <fieldset className="fieldset">
+              {/* input email */}
               <label className="label">Email</label>
               <input
-                name="email"
                 type="email"
                 className="input"
                 placeholder="Email"
+                {...register("email", { required: "email is required" })}
               />
+              {errors.email && <p role="alert">{errors.email.message}</p>}
+
+              {/* input password */}
               <label className="label">Password</label>
               <input
-                name="password"
                 type="password"
                 className="input"
                 placeholder="Password"
+                {...register("password", { required: "password is required" })}
               />
+              {errors.password && <p role="alert">{errors.password.message}</p>}
+
+              {/* captcha input */}
               <label className="label">
                 <LoadCanvasTemplate />
               </label>
-
               <input
                 ref={captchaInputRef}
                 name="captcha"
@@ -94,7 +105,6 @@ const Login = () => {
                 className="input"
                 placeholder="Enter the text you see above"
               />
-
               <button
                 onClick={handleCaptchaInput}
                 className="btn btn-success w-11/12 mx-auto mt-4"
@@ -103,6 +113,7 @@ const Login = () => {
                 Validate Captcha
               </button>
 
+              {/* login btn */}
               <button
                 disabled={disabledLoginBtn}
                 className="btn btn-neutral mt-4"
@@ -112,6 +123,7 @@ const Login = () => {
               </button>
             </fieldset>
           </form>
+          {/* google login outside form */}
           <button
             onClick={handleGoogleSignin}
             className="btn btn-info w-4/5 mx-auto mb-4"
