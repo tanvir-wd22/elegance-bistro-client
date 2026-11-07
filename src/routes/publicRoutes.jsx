@@ -6,7 +6,7 @@ import FoodShop from "../pages/FoodShop";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
-const webRouter = createBrowserRouter([
+const publicRoutes = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
@@ -35,4 +35,4 @@ const webRouter = createBrowserRouter([
   },
 ]);
 
-export default webRouter;
+export default publicRoutes;

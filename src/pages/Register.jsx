@@ -2,20 +2,21 @@ import { useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 
 const Register = () => {
-  const { createUser } = useAuth();
+  const { createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
 
   const handleSignUpForm = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
-    const photoUrl = e.target.photoUrl.value;
+    const photo = e.target.photo.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(name, photoUrl, email, password);
+    // console.log(name, photo, email, password);
 
     try {
       const result = await createUser(email, password);
       console.log(result);
+      await updateUserProfile(name, photo);
       navigate("/");
     } catch (error) {
       console.log(error.message);
@@ -31,10 +32,10 @@ const Register = () => {
 
           <label className="label">Photo Url</label>
           <input
-            name="photoUrl"
+            name="photo"
             type="text"
             className="input"
-            placeholder="Photo Url"
+            placeholder="Photo"
           />
 
           <label className="label">Email</label>

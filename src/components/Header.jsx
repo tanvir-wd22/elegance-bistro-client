@@ -3,7 +3,7 @@ import Container from "../shared/Container";
 import useAuth from "../hooks/useAuth";
 
 const Header = () => {
-  const { user } = useAuth();
+  const { user, signOutUser } = useAuth();
   const links = (
     <>
       <li>
@@ -17,6 +17,15 @@ const Header = () => {
       </li>
     </>
   );
+
+  const handleSignOutBtn = () => {
+    try {
+      const result = signOutUser();
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="fixed top-0 z-50 w-full bg-black/30 text-white">
@@ -60,7 +69,12 @@ const Header = () => {
           </div>
           <div className="navbar-end">
             {user ? (
-              <button>Logout</button>
+              <div className="flex gap-3 justify-center items-center">
+                <h2 className="text-lg font-medium">{user?.displayName}</h2>
+                <button onClick={handleSignOutBtn} className="btn btn-soft">
+                  Logout
+                </button>
+              </div>
             ) : (
               <Link className="btn btn-soft" to="/login">
                 Login
