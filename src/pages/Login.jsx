@@ -72,6 +72,13 @@ const Login = () => {
               </Link>{" "}
               Now.
             </p>
+            <p>
+              Go to{" "}
+              <Link to="/" className="link text-blue-500">
+                Home
+              </Link>{" "}
+              page
+            </p>
           </div>
         </div>
         <div className="w-full max-w-sm lg:w-1/2 card bg-base-100 shadow-2xl">
