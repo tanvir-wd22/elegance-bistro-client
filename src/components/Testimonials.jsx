@@ -1,6 +1,5 @@
 import SectionTitle from "../shared/SectionTitle";
 import Container from "../shared/Container";
-import baseUrl from "../api/baseUrl";
 
 // Import Swiper React components & modules
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,15 +13,23 @@ import "swiper/css/navigation";
 //Import react rating
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const Testimonials = () => {
+  const axiosSecure = useAxiosSecure();
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch(`${baseUrl}/reviews`)
-      .then((res) => res.json())
-      .then((data) => setReviews(data));
+    axiosSecure
+      .get("/reviews")
+      .then((res) => {
+        setReviews(res.data);
+      })
+      .catch((error) => {
+        console.log("testimonials data fetch error", error);
+      });
   }, []);
+
   // console.log(reviews);
 
   return (

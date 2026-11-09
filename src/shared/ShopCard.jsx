@@ -1,49 +1,61 @@
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router";
-import axios from "axios";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const ShopCard = ({ item }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosSecure = useAxiosSecure();
 
   const { name, image, recipe, price } = item;
 
   const handleAddToCart = (item) => {
-    if (user?.email) {
-      const cartItem = {
-        menuId: item?._id,
-        buyerEmail: user?.email,
-        name: item?.name,
-        recipe: item?.recipe,
-        price: item?.price,
-      };
+    const cartItem = {
+      menuId: item?._id,
+      buyerEmail: user?.email,
+      name,
+      recipe,
+      price,
+    };
 
-      axios.post(`http://localhost:3000/carts`, cartItem).then((res) => {
-        console.log(res.data);
-        if (res.data.insertedId) {
+    if (user?.email) {
+      axiosSecure
+        .post("/carts", cartItem)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${name} has been added to the cart`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log("carts data read error", error);
           Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: `${name} has added to cart`,
-            showConfirmButton: false,
-            timer: 1500,
+            icon: "error",
+            title: "Oops...",
+            text: "Failed to add item to cart. Please try again.",
           });
-        }
-      });
+        });
     } else {
       Swal.fire({
-        title: "Are you want to login?",
-        text: "Must login to add this item into the cart",
+        title: "Do you want to login?",
+        text: "You must login to add this item to the cart",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, login",
       }).then((result) => {
-        if (result.isConfirmed)
+        if (result.isConfirmed) {
           navigate("/login", { state: { from: location } });
+        }
       });
     }
   };

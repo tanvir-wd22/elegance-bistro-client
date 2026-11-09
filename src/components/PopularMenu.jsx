@@ -3,21 +3,25 @@ import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
 import MenuItem from "../shared/MenuItem";
 import { Link } from "react-router";
-import baseUrl from "../api/baseUrl";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const PopularMenu = () => {
+  const axiosSecure = useAxiosSecure();
   const [menu, setMenu] = useState([]);
 
   useEffect(() => {
-    fetch(`${baseUrl}/menus`)
-      .then((res) => res.json())
-      .then((data) => {
-        const pouplarMenuData = data.filter(
+    axiosSecure
+      .get("/menus")
+      .then((res) => {
+        const pouplarMenuData = res.data.filter(
           (element) => element.category === "popular",
         );
         setMenu(pouplarMenuData);
+      })
+      .catch((error) => {
+        console.log("menu data fetch error", error);
       });
-  }, []);
+  }, [axiosSecure]);
 
   return (
     <div>

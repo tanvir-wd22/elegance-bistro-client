@@ -19,7 +19,7 @@ const Header = () => {
       <li>
         <div className="flex items-center justify-center gap-2">
           <FaShoppingCart size={20} />
-          <span className="badge badge-sm badge-secondary">+99</span>
+          <span className="badge badge-sm badge-secondary">0</span>
         </div>
       </li>
     </>

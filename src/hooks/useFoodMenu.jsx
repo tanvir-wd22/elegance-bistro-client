@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
-import baseUrl from "../api/baseUrl";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useFoodMenu = () => {
+  const axiosSecure = useAxiosSecure();
   const [foodMenu, setFoodMenu] = useState([]);
 
   useEffect(() => {
-    fetch(`${baseUrl}/menus`)
-      .then((res) => res.json())
-      .then((data) => setFoodMenu(data));
+    axiosSecure
+      .get("/menus")
+      .then((res) => {
+        // console.log(res.data);
+        setFoodMenu(res.data);
+      })
+      .catch((error) => {
+        console.log("food menu get data error", error);
+      });
   }, []);
 
   return foodMenu;
