@@ -2,9 +2,13 @@ import { Link } from "react-router-dom";
 import Container from "../shared/Container";
 import useAuth from "../hooks/useAuth";
 import { FaShoppingCart } from "react-icons/fa";
+import useCart from "../hooks/useCart";
 
 const Header = () => {
   const { user, signOutUser } = useAuth();
+  const [cartData] = useCart();
+  console.log(cartData);
+
   const links = (
     <>
       <li>
@@ -19,7 +23,9 @@ const Header = () => {
       <li>
         <div className="flex items-center justify-center gap-2">
           <FaShoppingCart size={20} />
-          <span className="badge badge-sm badge-secondary">0</span>
+          <span className="badge badge-sm badge-secondary">
+            {cartData.length}
+          </span>
         </div>
       </li>
     </>
