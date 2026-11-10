@@ -2,9 +2,11 @@ import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useCart from "../hooks/useCart";
 
 const ShopCard = ({ item }) => {
   const { user } = useAuth();
+  const [, refetch] = useCart();
   const navigate = useNavigate();
   const location = useLocation();
   const axiosSecure = useAxiosSecure();
@@ -24,7 +26,7 @@ const ShopCard = ({ item }) => {
       axiosSecure
         .post("/carts", cartItem)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           if (res.data.insertedId) {
             Swal.fire({
               position: "top-end",
@@ -33,6 +35,8 @@ const ShopCard = ({ item }) => {
               showConfirmButton: false,
               timer: 1500,
             });
+            // refetch the data from react query to update the cart
+            refetch();
           }
         })
         .catch((error) => {
