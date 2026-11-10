@@ -1,13 +1,15 @@
 import { Helmet } from "react-helmet-async";
+
 import HeroCover from "../shared/HeroCover";
+import SectionTitle from "../shared/SectionTitle";
+import FoodMenuCategory from "../shared/FoodMenuCategory";
+import useFoodMenu from "../hooks/useFoodMenu";
+
 import menuBanner from "../assets/menu/menu-banner.jpg";
 import dessertBg from "../assets/menu/dessert-bg.jpeg";
 import pizzaBg from "../assets/menu/pizza-bg.jpg";
 import saladBg from "../assets/menu/salad-bg.jpg";
 import soupBg from "../assets/menu/soup-bg.jpg";
-import SectionTitle from "../shared/SectionTitle";
-import FoodMenuCategory from "../shared/FoodMenuCategory";
-import useFoodMenu from "../hooks/useFoodMenu";
 
 const FoodMenu = () => {
   const foodMenu = useFoodMenu() || [];

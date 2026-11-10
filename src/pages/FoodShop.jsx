@@ -1,13 +1,20 @@
-import { Helmet } from "react-helmet-async";
-import HeroCover from "../shared/HeroCover";
-import orderBanner from "../assets/shop/banner2.jpg";
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
+// 1. Core React Imports
 import { useState } from "react";
+
+// 2. Third-Party NPM Packages (Libraries & Routers)
+import { Helmet } from "react-helmet-async";
+import { useParams } from "react-router-dom";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+
+// 3. Local Components & Custom Hooks (Your Code)
 import Container from "../shared/Container";
-import useFoodMenu from "../hooks/useFoodMenu";
+import HeroCover from "../shared/HeroCover";
 import ShopTabCategory from "../shared/ShopTabCategory";
-import { useParams } from "react-router";
+import useFoodMenu from "../hooks/useFoodMenu";
+
+// 4. Assets & Stylesheets (Images & CSS at the bottom)
+import orderBanner from "../assets/shop/banner2.jpg";
+import "react-tabs/style/react-tabs.css";
 
 const FoodShop = () => {
   const { categoryName } = useParams();

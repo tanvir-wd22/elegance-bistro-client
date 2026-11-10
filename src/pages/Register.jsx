@@ -1,7 +1,6 @@
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useAuth();

@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Container from "../shared/Container";
 import useAuth from "../hooks/useAuth";
 import { FaShoppingCart } from "react-icons/fa";

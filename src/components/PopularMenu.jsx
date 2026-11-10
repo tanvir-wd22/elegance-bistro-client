@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
 import MenuItem from "../shared/MenuItem";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const PopularMenu = () => {

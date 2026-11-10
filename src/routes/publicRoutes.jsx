@@ -1,5 +1,5 @@
 import Root from "../layouts/Root";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import FoodMenu from "../pages/FoodMenu";
 import FoodShop from "../pages/FoodShop";
