@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Elegance Bistro | Home</title>
+        <title>Elegant Bistro | Home</title>
       </Helmet>
 
       <section className="mb-8 sm:mb-10 lg:mb-12">

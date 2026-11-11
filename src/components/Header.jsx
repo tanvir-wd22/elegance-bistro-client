@@ -78,7 +78,7 @@ const Header = () => {
               </ul>
             </div>
             <a className="btn btn-xs sm:btn-sm btn-soft text-xl">
-              Elegance Bistro
+              Elegant Bistro
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">

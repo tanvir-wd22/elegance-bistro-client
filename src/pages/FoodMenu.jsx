@@ -36,7 +36,7 @@ const FoodMenu = () => {
   return (
     <>
       <Helmet>
-        <title>Elegance Bistro | Menu</title>
+        <title>Elegant Bistro | Menu</title>
       </Helmet>
 
       {/* offered menu */}

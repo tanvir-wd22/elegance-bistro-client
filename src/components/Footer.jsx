@@ -54,7 +54,7 @@ const Footer = () => {
           <aside>
             <p>
               Copyright © {new Date().getFullYear()} - All right reserved by
-              Elegance Bistro Restaurants Ltd
+              Elegant Bistro Restaurants Ltd
             </p>
           </aside>
         </footer>
