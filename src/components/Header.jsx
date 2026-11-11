@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Container from "../shared/Container";
 import useAuth from "../hooks/useAuth";
 import { FaShoppingCart } from "react-icons/fa";
@@ -12,28 +12,30 @@ const Header = () => {
   const links = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <Link to="/menu">Food Menu</Link>
+        <NavLink to="/menu">Food Menu</NavLink>
       </li>
       <li>
-        <Link to="/shop/offered">Food Shop</Link>
+        <NavLink to="/shop/offered">Food Shop</NavLink>
       </li>
       <li>
-        <div className="flex items-center justify-center gap-2">
-          <FaShoppingCart size={20} />
-          <span className="badge badge-sm badge-secondary">
-            {cartData.length}
-          </span>
-        </div>
+        <NavLink to="/dashboard/myCart">
+          <div className="flex items-center justify-center gap-2">
+            <FaShoppingCart size={20} />
+            <span className="badge badge-sm badge-secondary">
+              {cartData.length}
+            </span>
+          </div>
+        </NavLink>
       </li>
     </>
   );
 
-  const handleSignOutBtn = () => {
+  const handleSignOutBtn = async () => {
     try {
-      const result = signOutUser();
+      const result = await signOutUser();
       console.log(result);
     } catch (error) {
       console.log(error);

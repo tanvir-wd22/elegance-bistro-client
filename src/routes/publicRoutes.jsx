@@ -5,6 +5,8 @@ import FoodMenu from "../pages/FoodMenu";
 import FoodShop from "../pages/FoodShop";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Dashboard from "../layouts/Dashboard";
+import MyCart from "../components/dashboard/MyCart";
 
 const publicRoutes = createBrowserRouter([
   {
@@ -16,20 +18,30 @@ const publicRoutes = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/menu",
+        path: "menu",
         element: <FoodMenu></FoodMenu>,
       },
       {
-        path: "/shop/:categoryName",
+        path: "shop/:categoryName",
         element: <FoodShop></FoodShop>,
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login></Login>,
       },
       {
-        path: "/register",
+        path: "register",
         element: <Register></Register>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "myCart",
+        element: <MyCart></MyCart>,
       },
     ],
   },
