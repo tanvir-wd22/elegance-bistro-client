@@ -77,7 +77,9 @@ const Header = () => {
                 {links}
               </ul>
             </div>
-            <a className="btn btn-soft text-xl">Elegance Bistro</a>
+            <a className="btn btn-xs sm:btn-sm btn-soft text-xl">
+              Elegance Bistro
+            </a>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{links}</ul>
@@ -86,12 +88,15 @@ const Header = () => {
             {user ? (
               <div className="flex gap-3 justify-center items-center">
                 <h2 className="text-lg font-medium">{user?.displayName}</h2>
-                <button onClick={handleSignOutBtn} className="btn btn-soft">
+                <button
+                  onClick={handleSignOutBtn}
+                  className="btn btn-xs sm:btn-sm btn-soft"
+                >
                   Logout
                 </button>
               </div>
             ) : (
-              <Link className="btn btn-soft" to="/login">
+              <Link className="btn btn-xs sm:btn-sm btn-soft" to="/login">
                 Login
               </Link>
             )}

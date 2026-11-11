@@ -51,10 +51,18 @@ const Dashboard = () => {
                 <span>My Booking</span>
               </NavLink>
             </li>
+            {/* divider */}
+            <div className="divider"></div>
+            <li>
+              <NavLink to="/">
+                <FaHome></FaHome>
+                <span>Home</span>
+              </NavLink>
+            </li>
           </ul>
         </div>
         {/* === dashboard right side panel */}
-        <div className="flex-1">
+        <div className="flex-1 p-8">
           <Outlet></Outlet>
         </div>
       </section>

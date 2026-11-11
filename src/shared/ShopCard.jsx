@@ -20,6 +20,7 @@ const ShopCard = ({ item }) => {
       name,
       recipe,
       price,
+      image,
     };
 
     if (user?.email) {
